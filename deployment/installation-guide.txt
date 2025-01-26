@@ -1,0 +1,31 @@
+1. Installing KIND and kubectl
+    a. Make install.sh executable
+    - sudo chmod +x install.sh
+    b. run install.sh
+    ./install.sh
+
+2. Setting up KIND cluster
+    a. create a kind-cluster-config.yml -  kind cluster configuration
+    b. Execute the configuration
+        - kind create cluster --config kind-cluster-config.yml --name kubernetes-devops
+    c. Verify the cluster
+        - kubectl get nodes
+        - kubectl cluster-info
+
+3. Create namespace
+    - kubectl apply -f namespace.yml
+    - kubectl get namespaces
+
+4. Create backend deployment
+    - kubectl apply -f backend-deployment.yml
+    - kubectl get nodes -n <namespace>
+    - kubectl get pods -n <namespace>
+    - watch get pods -n kubernetes-live
+    - kubectl logs backend-6d9b4775c5-l4gsl -n kubernetes-live
+
+5. Create backend service
+    - kubectl apply -f backend-service.yml
+    - kubectl get svc -n <namespace>
+
+6. Port forwarding
+    - kubectl port-forward service/backend 8181:8181 --address 0.0.0.0 -n kubernetes-live
