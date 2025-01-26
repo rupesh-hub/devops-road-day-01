@@ -1,0 +1,23 @@
+
+services:
+  devops-day-01:
+    container_name: devops-day-01
+    image: rupesh1997/devops-day-01:1.0.0
+#    build:
+#      context: .
+#      dockerfile: docker/backend/Dockerfile
+    ports:
+      - "8181:8181"
+    networks:
+      - devops-day-01-network
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8181/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+      start_period: 40s
+
+networks:
+  devops-day-01-network:
+    driver: bridge
